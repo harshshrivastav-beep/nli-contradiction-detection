@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NLI Contradiction Detection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="background-glow"></div>
+
+<div class="page-wrapper">
+    <div class="container">
+
+        <header class="header">
+            <h1 class="page-title">
+                <span class="gradient-text">NLI Inference Engine</span>
+            </h1>
+            <p class="subtitle">
+                Transformer-powered Natural Language Inference system
+                for detecting Entailment, Contradiction, or Neutral relationships.
+            </p>
+        </header>
+
+        <form method="POST" class="nli-form">
+
+            <div class="field-group">
+                <label class="field-label">Premise</label>
+                <textarea
+                    name="premise"
+                    placeholder="The student submitted the assignment before the deadline..."
+                    required>{{ premise }}</textarea>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Hypothesis</label>
+                <textarea
+                    name="hypothesis"
+                    placeholder="The student missed the assignment deadline..."
+                    required>{{ hypothesis }}</textarea>
+            </div>
+
+            <div class="form-footer">
+                <button type="submit" class="primary-btn">
+                    Run Inference →
+                </button>
+            </div>
+
+        </form>
+
+        {% if result %}
+        <section class="result-card {{ result|lower }}">
+            <div class="result-header">
+                <span class="result-badge">{{ result }}</span>
+            </div>
+            <p class="result-description">
+                The model predicts that the relationship between the given
+                premise and hypothesis is classified as <strong>{{ result }}</strong>.
+            </p>
+        </section>
+        {% endif %}
+
+    </div>
+</div>
+
+</body>
+</html>
