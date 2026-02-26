@@ -20,6 +20,10 @@ def predict_relationship(premise, hypothesis):
         outputs = model(**inputs)
 
     logits = outputs.logits
-    predicted_class_id = torch.argmax(logits, dim=1).item()
+    probs = torch.softmax(logits, dim=1)[0]
+    predicted_class_id = torch.argmax(probs).item()
 
-    return labels[predicted_class_id]
+    label = labels[predicted_class_id]
+    confidence = round(probs[predicted_class_id].item() * 100, 2)
+
+    return label, confidence

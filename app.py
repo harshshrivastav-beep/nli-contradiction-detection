@@ -6,17 +6,19 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def index():
     result = None
+    confidence = None
     premise = ""
     hypothesis = ""
 
     if request.method == "POST":
         premise = request.form["premise"]
         hypothesis = request.form["hypothesis"]
-        result = predict_relationship(premise, hypothesis)
+        result, confidence = predict_relationship(premise, hypothesis)
 
     return render_template(
         "index.html",
         result=result,
+        confidence=confidence,
         premise=premise,
         hypothesis=hypothesis
     )
