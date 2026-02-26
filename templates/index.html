@@ -2,66 +2,159 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NLI Contradiction Detection</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLI Contradiction Detection — Harsh Shrivastav</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="background-glow"></div>
-
 <div class="page-wrapper">
-    <div class="container">
 
-        <header class="header">
-            <h1 class="page-title">
-                <span class="gradient-text">NLI Inference Engine</span>
-            </h1>
-            <p class="subtitle">
-                Transformer-powered Natural Language Inference system
-                for detecting Entailment, Contradiction, or Neutral relationships.
+    <!-- ── HEADER ── -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="header-tag">Master's Research Project · Natural Language Processing</div>
+            <h1 class="project-title">Natural Language Inference &amp;<br>Contradiction Detection</h1>
+            <div class="meta-row">
+                <span class="meta-item author">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                    Harsh Shrivastav
+                </span>
+                <span class="meta-divider">·</span>
+                <span class="meta-item model-badge">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    facebook/bart-large-mnli
+                </span>
+                <span class="meta-divider">·</span>
+                <span class="meta-item">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    HuggingFace Transformers
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ── ABSTRACT ── -->
+    <section class="abstract-section">
+        <div class="abstract-inner">
+            <span class="section-label">Abstract</span>
+            <p class="abstract-text">
+                This system leverages <strong>BART-Large fine-tuned on the MNLI corpus</strong> to perform
+                Natural Language Inference (NLI) — a core task in NLP that determines the semantic
+                relationship between a <em>premise</em> and a <em>hypothesis</em>. Given any two sentences,
+                the model classifies their relationship as <strong>Entailment</strong>,
+                <strong>Contradiction</strong>, or <strong>Neutral</strong>, along with a
+                confidence score derived from the softmax probability distribution.
             </p>
-        </header>
+        </div>
+    </section>
+
+    <!-- ── MAIN CARD ── -->
+    <main class="main-card">
+
+        <div class="card-section-label">Inference Input</div>
 
         <form method="POST" class="nli-form">
 
-            <div class="field-group">
-                <label class="field-label">Premise</label>
-                <textarea
-                    name="premise"
-                    placeholder="The student submitted the assignment before the deadline..."
-                    required>{{ premise }}</textarea>
-            </div>
+            <div class="form-grid">
+                <div class="field-group">
+                    <label class="field-label">
+                        <span class="label-num">P</span>
+                        Premise
+                        <span class="label-hint">The given factual statement</span>
+                    </label>
+                    <textarea
+                        name="premise"
+                        placeholder="e.g. The student submitted the assignment before the deadline..."
+                        required>{{ premise }}</textarea>
+                </div>
 
-            <div class="field-group">
-                <label class="field-label">Hypothesis</label>
-                <textarea
-                    name="hypothesis"
-                    placeholder="The student missed the assignment deadline..."
-                    required>{{ hypothesis }}</textarea>
+                <div class="field-group">
+                    <label class="field-label">
+                        <span class="label-num">H</span>
+                        Hypothesis
+                        <span class="label-hint">The statement to be evaluated</span>
+                    </label>
+                    <textarea
+                        name="hypothesis"
+                        placeholder="e.g. The student missed the assignment deadline..."
+                        required>{{ hypothesis }}</textarea>
+                </div>
             </div>
 
             <div class="form-footer">
-                <button type="submit" class="primary-btn">
-                    Run Inference →
+                <button type="submit" class="run-btn">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    Run Inference
                 </button>
             </div>
 
         </form>
 
+        <!-- ── RESULT ── -->
         {% if result %}
-        <section class="result-card {{ result|lower }}">
-            <div class="result-header">
-                <span class="result-badge">{{ result }}</span>
+        <div class="result-section">
+            <div class="card-section-label">Model Output</div>
+
+            <div class="result-card {{ result | lower }}">
+
+                <div class="result-top">
+                    <div class="result-label-area">
+                        <span class="result-icon">
+                            {% if result == "Entailment" %}✅
+                            {% elif result == "Contradiction" %}❌
+                            {% else %}🔘{% endif %}
+                        </span>
+                        <div>
+                            <div class="result-verdict">{{ result }}</div>
+                            <div class="result-sub">Predicted relationship</div>
+                        </div>
+                    </div>
+                    <div class="confidence-area">
+                        <div class="confidence-value">{{ confidence }}%</div>
+                        <div class="confidence-label">Confidence</div>
+                    </div>
+                </div>
+
+                <div class="confidence-bar-track">
+                    <div class="confidence-bar-fill" style="width: {{ confidence }}%;"></div>
+                </div>
+
+                <p class="result-interpretation">
+                    {% if result == "Entailment" %}
+                        The hypothesis <strong>logically follows</strong> from the premise. The model is <strong>{{ confidence }}% confident</strong> that the premise supports the hypothesis.
+                    {% elif result == "Contradiction" %}
+                        The hypothesis <strong>contradicts</strong> the premise. The model is <strong>{{ confidence }}% confident</strong> that these two statements are mutually inconsistent.
+                    {% else %}
+                        The hypothesis is <strong>neither confirmed nor denied</strong> by the premise. The model is <strong>{{ confidence }}% confident</strong> in a neutral relationship.
+                    {% endif %}
+                </p>
+
             </div>
-            <p class="result-description">
-                The model predicts that the relationship between the given
-                premise and hypothesis is classified as <strong>{{ result }}</strong>.
-            </p>
-        </section>
+
+            <!-- Score Breakdown Table -->
+            <div class="score-note">
+                ℹ️ Confidence is derived from the softmax probability of the predicted class over the full label distribution (Entailment · Neutral · Contradiction).
+            </div>
+        </div>
         {% endif %}
 
-    </div>
+    </main>
+
+    <!-- ── FOOTER ── -->
+    <footer class="site-footer">
+        <p>
+            Model: <a href="https://huggingface.co/facebook/bart-large-mnli" target="_blank">facebook/bart-large-mnli</a>
+            &nbsp;·&nbsp;
+            Framework: <a href="https://huggingface.co/docs/transformers" target="_blank">HuggingFace Transformers</a>
+            &nbsp;·&nbsp;
+            Built by <strong>Harsh Shrivastav</strong>
+        </p>
+        <p class="footer-cite">Lewis et al. (2020) · BART: Denoising Sequence-to-Sequence Pre-training for NLG, Translation, and Comprehension</p>
+    </footer>
+
 </div>
 
 </body>
