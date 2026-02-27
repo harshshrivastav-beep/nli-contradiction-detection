@@ -1,11 +1,15 @@
 /* ── Reset & Base ─────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background: #f8f7f4;
     color: #1e293b;
-    line-height: 1.6;
+    line-height: 1.5;
     overflow-x: hidden;
 }
 
@@ -14,44 +18,47 @@ a:hover { text-decoration: underline; }
 
 /* ── Page Wrapper ─────────────────────────────────── */
 .page-wrapper {
-    max-width: 900px;
+    max-width: 860px;
     margin: 0 auto;
-    padding: 48px 24px 60px;
+    padding: 18px 20px 18px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* ── Site Header ──────────────────────────────────── */
 .site-header {
     border-bottom: 2px solid #1e293b;
-    padding-bottom: 28px;
-    margin-bottom: 28px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
 }
 
 .header-inner {}
 
 .header-tag {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: #2563eb;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
 }
 
 .project-title {
     font-family: 'Source Serif 4', Georgia, serif;
-    font-size: 2.4rem;
+    font-size: 1.7rem;
     font-weight: 700;
     color: #0f172a;
     line-height: 1.2;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
 }
 
 .meta-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
+    gap: 6px;
+    font-size: 0.8rem;
     color: #475569;
 }
 
@@ -66,10 +73,10 @@ a:hover { text-decoration: underline; }
     background: #eff6ff;
     border: 1px solid #bfdbfe;
     color: #1d4ed8;
-    padding: 2px 10px;
+    padding: 2px 8px;
     border-radius: 4px;
     font-family: 'Courier New', monospace;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
 }
 
 .meta-divider { color: #cbd5e1; }
@@ -79,24 +86,24 @@ a:hover { text-decoration: underline; }
     background: #f1f5f9;
     border-left: 4px solid #2563eb;
     border-radius: 0 8px 8px 0;
-    padding: 20px 24px;
-    margin-bottom: 36px;
+    padding: 10px 16px;
+    margin-bottom: 12px;
 }
 
 .section-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: #2563eb;
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 .abstract-text {
-    font-size: 0.92rem;
+    font-size: 0.82rem;
     color: #334155;
-    line-height: 1.75;
+    line-height: 1.6;
 }
 
 /* ── Main Card ────────────────────────────────────── */
@@ -104,41 +111,44 @@ a:hover { text-decoration: underline; }
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
-    padding: 36px;
+    padding: 20px;
     box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-    margin-bottom: 32px;
+    margin-bottom: 12px;
+    flex: 1;
 }
 
 .card-section-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: #94a3b8;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
     border-bottom: 1px solid #f1f5f9;
 }
 
 /* ── Form ─────────────────────────────────────────── */
-.nli-form { display: flex; flex-direction: column; gap: 24px; }
+.nli-form { display: flex; flex-direction: column; gap: 12px; }
 
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 14px;
 }
 
 @media (max-width: 640px) {
     .form-grid { grid-template-columns: 1fr; }
-    .project-title { font-size: 1.7rem; }
-    .main-card { padding: 22px; }
+    .project-title { font-size: 1.25rem; }
+    .main-card { padding: 14px; }
+    .page-wrapper { padding: 12px 12px 12px; }
+    .abstract-text { font-size: 0.78rem; }
 }
 
-.field-group { display: flex; flex-direction: column; gap: 8px; }
+.field-group { display: flex; flex-direction: column; gap: 6px; }
 
 .field-label {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 600;
     color: #374151;
     display: flex;
@@ -150,19 +160,19 @@ a:hover { text-decoration: underline; }
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     background: #1e293b;
     color: #fff;
     border-radius: 4px;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 700;
     font-family: 'Courier New', monospace;
     flex-shrink: 0;
 }
 
 .label-hint {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: #94a3b8;
     font-weight: 400;
     margin-left: auto;
@@ -170,14 +180,15 @@ a:hover { text-decoration: underline; }
 
 textarea {
     width: 100%;
-    min-height: 130px;
-    padding: 14px;
+    min-height: 80px;
+    max-height: 110px;
+    padding: 10px;
     border-radius: 8px;
     border: 1.5px solid #e2e8f0;
     background: #fafafa;
     color: #1e293b;
     resize: vertical;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-family: 'Inter', sans-serif;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -198,11 +209,11 @@ textarea:focus {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 11px 28px;
+    padding: 9px 22px;
     border-radius: 6px;
     border: none;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-family: 'Inter', sans-serif;
     background: #1e293b;
     color: #ffffff;
@@ -217,13 +228,13 @@ textarea:focus {
 }
 
 /* ── Result Section ───────────────────────────────── */
-.result-section { margin-top: 36px; }
+.result-section { margin-top: 14px; }
 
 .result-card {
     border-radius: 10px;
-    padding: 24px;
+    padding: 16px;
     border: 1.5px solid #e2e8f0;
-    margin-top: 14px;
+    margin-top: 10px;
     animation: fadeSlideIn 0.35s ease;
 }
 
@@ -261,28 +272,28 @@ textarea:focus {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 8px;
 }
 
 .result-label-area {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
 }
 
-.result-icon { font-size: 2rem; line-height: 1; }
+.result-icon { font-size: 1.6rem; line-height: 1; }
 
 .result-verdict {
     font-family: 'Source Serif 4', Georgia, serif;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     font-weight: 700;
     line-height: 1.1;
 }
 
 .result-sub {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: #64748b;
     margin-top: 2px;
     text-transform: uppercase;
@@ -293,14 +304,14 @@ textarea:focus {
 
 .confidence-value {
     font-family: 'Source Serif 4', Georgia, serif;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: #1e293b;
     line-height: 1;
 }
 
 .confidence-label {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -309,11 +320,11 @@ textarea:focus {
 
 /* Confidence Bar */
 .confidence-bar-track {
-    height: 6px;
+    height: 5px;
     background: rgba(0,0,0,0.08);
     border-radius: 999px;
     overflow: hidden;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
 }
 
 .confidence-bar-fill {
@@ -323,17 +334,17 @@ textarea:focus {
 }
 
 .result-interpretation {
-    font-size: 0.88rem;
+    font-size: 0.82rem;
     color: #374151;
-    line-height: 1.7;
+    line-height: 1.6;
 }
 
 .score-note {
-    margin-top: 14px;
-    font-size: 0.78rem;
+    margin-top: 10px;
+    font-size: 0.74rem;
     color: #94a3b8;
-    line-height: 1.6;
-    padding: 10px 14px;
+    line-height: 1.5;
+    padding: 8px 12px;
     background: #f8fafc;
     border-radius: 6px;
     border: 1px solid #e2e8f0;
@@ -342,16 +353,16 @@ textarea:focus {
 /* ── Footer ───────────────────────────────────────── */
 .site-footer {
     text-align: center;
-    padding-top: 24px;
+    padding-top: 12px;
     border-top: 1px solid #e2e8f0;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #94a3b8;
-    line-height: 1.8;
+    line-height: 1.6;
 }
 
 .footer-cite {
     font-style: italic;
-    font-size: 0.75rem;
-    margin-top: 4px;
+    font-size: 0.7rem;
+    margin-top: 2px;
     color: #cbd5e1;
 }
